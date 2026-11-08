@@ -1,0 +1,22 @@
+# Keeps the CI workflow's actions and the dev tooling in tools/ up to date.
+# Security fixes are raised as soon as an advisory lands (when Dependabot
+# security updates are enabled in the repo settings); version bumps are monthly.
+#
+# Note: a chess.js bump in tools/ will fail the "Vendored chess.js matches the
+# locked package" CI step until src/vendor/chess.js is re-vendored (see CLAUDE.md).
+
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns: ["*"]
+
+  - package-ecosystem: npm
+    directory: /tools
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 5
