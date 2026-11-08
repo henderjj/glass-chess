@@ -1,0 +1,19 @@
+{
+  "name": "glasschess-tools",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Dev-only generator and validation tooling for GlassChess. Not loaded by the browser app, which stays build-free (plain ES modules).",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node test-ai.mjs && node verify-games.mjs",
+    "gen-games": "node gen-games.mjs",
+    "profiles": "node profile-svg.mjs"
+  },
+  "dependencies": {
+    "chess.js": "^1.4.0"
+  }
+}
