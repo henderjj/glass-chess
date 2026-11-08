@@ -984,6 +984,12 @@ function setDebug(v) {
   requestRender();   // next frame fills the overlay (or it stays hidden)
 }
 
+// Escape text for interpolation into innerHTML (difficulty comes from a
+// <select>, move labels from chess.js / game data).
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+}
+
 // Minimal game-status pill (bottom-centre): mode · move · status/result.
 // Shown only while a game is loaded; empty/idle scenes leave the board clear.
 function updateStatusBar() {
@@ -1015,8 +1021,8 @@ function updateStatusBar() {
   const spd = (!game.playMode && game.speed > 1) ? ` <b style="color:#f0c070">×${game.speed}</b>` : "";
   const sep = `<span class="sep">·</span>`;
   statusbar.innerHTML =
-    `<span class="title">${title}</span>${sep}` +
-    (move ? `<b>${move}</b>` : `<span class="dim">ready</span>`) +
+    `<span class="title">${escapeHtml(title)}</span>${sep}` +
+    (move ? `<b>${escapeHtml(move)}</b>` : `<span class="dim">ready</span>`) +
     `${sep}<span class="dim">${st}</span>${spd}`;
   statusbar.classList.add("show");
 }
